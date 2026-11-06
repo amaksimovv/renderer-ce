@@ -6,6 +6,12 @@ MIT licensed, TypeScript, Canvas 2D and KDBush 4.0.2. The primary entry point is
 
 [Open the Barclays Center demo (19,608 seats)](https://seatmap-pro.github.io/renderer-ce/?venue=barclays)
 
+## Installation
+
+```sh
+npm install @seatmap.pro/renderer-ce
+```
+
 ## Start the demo
 
 Use Node.js 22.12+ and Corepack:
