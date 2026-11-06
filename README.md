@@ -160,7 +160,7 @@ The package exports ESM, CommonJS/UMD and declarations. The browser global is `S
 
 Browser tests cover Chromium desktop and mobile layouts, keyboard and pointer selection, SVG alignment, outline holes, and the real Barclays map. `PLAYWRIGHT_CHANNEL=chrome` uses an installed Chrome. Test artifacts are written under `.ai-runtime/renderer-ce` by default. Override the results directory with `RENDERER_CE_ARTIFACTS`.
 
-The performance suite runs one browser at a time on the Barclays map. It reports frame intervals for a 14% pan and two returns from 132% through 100% to overview. It also checks that hovering and selecting seats leave the base map untouched. Mobile results use Chromium device emulation.
+The performance suite runs one browser at a time on the Barclays map. It reports frame intervals for a 14% pan and two returns from 125% through 100% to overview. It also checks that hovering and selecting seats leave the base map untouched. Mobile results use Chromium device emulation.
 
 ## License and map source
 

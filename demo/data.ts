@@ -35,7 +35,7 @@ export async function venueData(
     const seat = data.seats.find((s) => `${s.section}:${s.row}` === key)!;
     return {
       id: i + 1,
-      rowNumber: i + 1,
+      rowNumber: id === 'arena' ? Number(seat.row) : seat.row!.charCodeAt(0) - 64,
       sectorId: sections.indexOf(seat.section ?? 'Seats') + 1,
       name: seat.row ?? '',
       seatName: 'Seat',
@@ -76,15 +76,8 @@ export async function venueData(
   svg = new XMLSerializer().serializeToString(wrapped);
   const outlines = document.createElementNS(wrapped.namespaceURI, 'svg');
   for (const outline of data.outlines ?? []) {
-    const nearby = data.seats.find(
-      (s) =>
-        s.x >= outline.bounds.x &&
-        s.x <= outline.bounds.x + outline.bounds.width &&
-        s.y >= outline.bounds.y &&
-        s.y <= outline.bounds.y + outline.bounds.height,
-    );
-    const section = sectors.find((s) => s.name === nearby?.section);
-    if (!section) continue;
+    const section = sectors.find((s) => s.name === outline.section);
+    if (!section) throw new Error(`Unknown outline section: ${outline.section}`);
     const path = document.createElementNS(wrapped.namespaceURI, 'path');
     path.setAttribute('data-gos-id', String(section.id));
     path.setAttribute('data-section-id', String(section.id));

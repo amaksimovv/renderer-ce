@@ -28,7 +28,17 @@ let currentVenue = 'theatre',
   cartVisible = false,
   selectionCount = 0;
 let seats = new Map<number, ISeat>();
+const pixelRatio = window.devicePixelRatio || 1;
+const zoomLimit = 1.25 / pixelRatio;
 const renderer = new SeatmapBookingRenderer(map, {
+  zoomSettings: {
+    presets: [1 / pixelRatio, zoomLimit],
+    minPinchZoom: 0.01 / pixelRatio,
+    maxPinchZoom: zoomLimit,
+    maxZoomToFitScale: Math.min(1, 1 / pixelRatio),
+  },
+  zoomToSectionMode: 'scale',
+  zoomToSectionDefaultScale: zoomLimit,
   zoomAnimationDuration: 400,
   forceSvg: true,
   onRedrawEnd: () => {

@@ -31,7 +31,8 @@ test(
     const rounds: { draws: number; maxFrameMs: number; frames: number; zooms: number }[] = [];
     for (let round = 0; round < 2; round++) {
       await page.locator('#section').selectOption({ index: 1 });
-      await expect(page.locator('#zoom-level')).toHaveText('132%');
+      await expect(page.locator('#zoom-level')).toHaveText('125%');
+      await expect(page.getByRole('button', { name: 'Zoom in', exact: true })).toBeDisabled();
       await page.getByRole('button', { name: 'Zoom out', exact: true }).click();
       await expect(page.locator('#zoom-level')).toHaveText('100%');
       await page.waitForTimeout(100);

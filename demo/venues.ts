@@ -1,12 +1,12 @@
 import type { Category, MapLabel, Seat, SeatmapData } from '../src/types';
 import theatreSvg from './assets/meridian.svg?raw';
 import arenaSvgUrl from './assets/roundhouse.svg?url';
-import { arenaOutlines, theatreOutlines } from './outlines';
+import { arenaOutlines, theatreOutlines, type DemoOutline } from './outlines';
 
 export interface DemoVenue {
   readonly name: string;
   readonly description: string;
-  readonly data: SeatmapData;
+  readonly data: SeatmapData & { outlines: DemoOutline[] };
 }
 
 const categories: readonly Category[] = [
@@ -26,7 +26,7 @@ function theatre(): DemoVenue {
       seats.push({
         id: `${rowName}${column + 1}`,
         x: 60 + column * 23 + (column >= 5 ? 24 : 0) + (column >= 15 ? 24 : 0),
-        y: y + (column < 5 || column >= 15 ? 6 : 0),
+        y: y + 8 * ((column - 9.5) / 9.5) ** 2,
         label: String(column + 1),
         row: rowName,
         section: row >= 8 ? 'Balcony' : 'Stalls',
@@ -44,7 +44,7 @@ function theatre(): DemoVenue {
       seats,
       categories,
       labels,
-      background: { svg: theatreSvg, bounds: { x: 25, y: 10, width: 540, height: 432 } },
+      background: { svg: theatreSvg, bounds: { x: 0, y: 0, width: 600, height: 470 } },
       outlines: theatreOutlines(),
     },
   };
@@ -56,24 +56,25 @@ function arena(): DemoVenue {
   for (let section = 0; section < 8; section++) {
     const angle = (section * Math.PI) / 4;
     labels.push({
-      x: 350 + Math.cos(angle) * 305,
-      y: 350 + Math.sin(angle) * 305,
+      x: 525 + Math.cos(angle) * 460,
+      y: 525 + Math.sin(angle) * 460,
       text: `S${section + 1}`,
       size: 12,
     });
     for (let row = 0; row < 8; row++) {
-      for (let column = 0; column < 12; column++) {
-        const theta = angle + (column - 5.5) * 0.053;
-        const radius = 140 + row * 20;
+      const columns = [8, 9, 10, 11, 13, 14, 15, 16][row]!;
+      for (let column = 0; column < columns; column++) {
+        const theta = angle + ((column + 0.5) / columns - 0.5) * 0.66;
+        const radius = 210 + row * 30;
         seats.push({
           id: `S${section + 1}-${row + 1}-${column + 1}`,
-          x: 350 + Math.cos(theta) * radius,
-          y: 350 + Math.sin(theta) * radius,
+          x: 525 + Math.cos(theta) * radius,
+          y: 525 + Math.sin(theta) * radius,
           label: String(column + 1),
           row: String(row + 1),
           section: `Section ${section + 1}`,
           category: row < 2 ? 'premium' : row < 5 ? 'standard' : 'balcony',
-          status: (section * 31 + row * 13 + column * 3) % 13 < 2 ? 'unavailable' : 'available',
+          status: (section * 31 + row * 7 + column * 3) % 13 < 2 ? 'unavailable' : 'available',
           accessible: row === 7 && column === 0,
         });
       }
@@ -86,7 +87,7 @@ function arena(): DemoVenue {
       seats,
       categories,
       labels,
-      background: { url: arenaSvgUrl, bounds: { x: 15, y: 15, width: 670, height: 670 } },
+      background: { url: arenaSvgUrl, bounds: { x: 0, y: 0, width: 1050, height: 1050 } },
       outlines: arenaOutlines(),
     },
   };

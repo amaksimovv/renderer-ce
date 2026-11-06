@@ -72,10 +72,14 @@ test('pointer selection works and dragging does not select seats', async ({ page
   const canvas = page.locator('canvas[data-seatmap-layer=map]');
   const box = await canvas.boundingBox();
   if (!box) throw new Error('Missing canvas');
-  const scale = Math.min(1, Math.min(box.width / 540, box.height / 432) * 0.85);
+  const scale = Math.min(
+    1,
+    1 / (await page.evaluate(() => devicePixelRatio)),
+    Math.min(box.width / 600, box.height / 470) * 0.85,
+  );
   const position = {
-    x: box.width / 2 + (60 - 270) * scale,
-    y: box.height / 2 + (101 - 216) * scale,
+    x: box.width / 2 + (60 - 300) * scale,
+    y: box.height / 2 + (103 - 235) * scale,
   };
   if (isMobile) await canvas.tap({ position });
   else await canvas.click({ position });
