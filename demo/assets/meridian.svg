@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="25 10 540 432">
+  <path d="M37 74V430Q37 440 47 440H543Q553 440 553 430V74" fill="none" stroke="#d8d9ce" stroke-width="2"/>
+  <path d="M38 67Q295 27 552 67" fill="none" stroke="#d8d9ce" stroke-width="2"/>
+  <rect x="166" y="10" width="260" height="40" rx="8" fill="#dddccf"/>
+  <path d="M186 46H406" stroke="#bbbcae" stroke-width="2"/>
+  <text x="296" y="34" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" letter-spacing="3" fill="#333b34">STAGE</text>
+  <path d="M172 78V439M424 78V439" fill="none" stroke="#d2d7cb" stroke-dasharray="3 6"/>
+  <path d="M38 317H552" fill="none" stroke="#c6cdbd" stroke-width="2"/>
+  <path d="M38 322H552" fill="none" stroke="#d9ddcf"/>
+</svg>

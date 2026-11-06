@@ -1,0 +1,9 @@
+node_modules/
+.yarn/
+dist/
+dist-demo/
+coverage/
+test-results/
+playwright-report/
+*.tgz
+.ai-runtime/

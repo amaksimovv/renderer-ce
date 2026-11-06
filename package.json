@@ -1,0 +1,78 @@
+{
+  "name": "@seatmap.pro/renderer-ce",
+  "version": "0.1.0",
+  "description": "Open-source Canvas 2D seating charts with a lightweight booking selection client",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "yarn@4.13.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "homepage": "https://seatmap.pro",
+  "author": "Seatmap.pro",
+  "keywords": [
+    "seatmap",
+    "seating-chart",
+    "canvas",
+    "booking",
+    "ticketing",
+    "renderer",
+    "typescript"
+  ],
+  "sideEffects": false,
+  "main": "./dist/renderer-ce.cjs",
+  "module": "./dist/renderer-ce.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/renderer-ce.js",
+      "require": "./dist/renderer-ce.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "vite --host 127.0.0.1",
+    "build": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
+    "build:demo": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src demo tests *.ts",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepack": "yarn build",
+    "test:perf": "playwright test --config playwright.config.ts --grep @performance --workers=1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^22.15.12",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "esbuild": "^0.25.12",
+    "eslint": "^9.0.0",
+    "globals": "^17.0.0",
+    "jsdom": "^28.1.0",
+    "prettier": "3.8.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.6",
+    "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "kdbush": "4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seatmap-pro/renderer-ce.git"
+  }
+}

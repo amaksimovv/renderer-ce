@@ -1,0 +1,27 @@
+name: Check renderer-ce
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn type-check && yarn lint && yarn format:check && yarn test
+      - run: yarn build && yarn build:demo
+      - run: yarn playwright install --with-deps chromium
+      - run: yarn test:e2e
+        env:
+          RENDERER_CE_ARTIFACTS: test-results
+      - run: yarn pack --out /tmp/renderer-ce.tgz

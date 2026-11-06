@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#20241f" />
+    <meta
+      name="description"
+      content="Try renderer-ce, the MIT-licensed Canvas 2D seating chart renderer from Seatmap.pro. Select seats, explore venues, and build your own booking experience."
+    />
+    <title>renderer-ce — Open-source seat selection by Seatmap.pro</title>
+    <link rel="icon" href="data:," />
+    <script type="module" src="/demo/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#playground">Skip to seat selection</a>
+    <header class="site-header">
+      <a class="brand" href="https://seatmap.pro">seatmap<span>.pro</span></a>
+      <span class="edition">renderer-ce <span>Community Edition</span></span>
+      <a class="header-link" href="#quickstart">Quickstart <span aria-hidden="true">↗</span></a>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div>
+          <p class="eyebrow"><span class="status-dot"></span> Open-source seat selection</p>
+          <h1 id="title">Your seats.<br /><span>Your stack.</span></h1>
+        </div>
+        <div class="intro-copy">
+          <p>
+            A seating chart that fits your product.<br />A small Canvas 2D renderer, a simple
+            booking client, and the freedom to make it yours.
+          </p>
+          <div class="intro-facts">
+            <span>MIT licensed</span><span>TypeScript</span><span>Canvas 2D + KDBush</span>
+          </div>
+        </div>
+      </section>
+      <section id="playground" class="playground" aria-labelledby="demo-title">
+        <div class="venue-header">
+          <div>
+            <p class="eyebrow">Try it live</p>
+            <h2 id="demo-title">Meridian Hall</h2>
+            <p id="venue-description">An intimate room. Every seat in view.</p>
+          </div>
+          <label class="venue-select"
+            >Explore a venue<select id="venue">
+              <option value="theatre">Meridian Hall</option>
+              <option value="barclays">Barclays Center</option>
+              <option value="arena">Roundhouse Arena</option>
+            </select></label
+          >
+        </div>
+        <div class="booking-layout">
+          <div class="map-area">
+            <div id="venue-status" class="venue-status" hidden>
+              <div class="venue-status-message" role="status" aria-live="polite">
+                <strong id="venue-status-title"></strong>
+                <p id="venue-status-detail"></p>
+              </div>
+              <button id="retry-venue" class="secondary-button" type="button" hidden>
+                Try again
+              </button>
+            </div>
+            <div id="venue-content">
+              <div class="map-topline">
+                <span id="seat-count"></span>
+                <label class="section-select"
+                  >Section<select id="section" aria-label="Section">
+                    <option value="">Whole venue</option>
+                  </select></label
+                >
+                <div class="view-switch" role="group" aria-label="Seat selection view">
+                  <button id="map-view" type="button" aria-pressed="true">Map</button
+                  ><button id="list-view" type="button" aria-pressed="false">List</button>
+                </div>
+              </div>
+              <div class="map-stage">
+                <div class="map-wrap">
+                  <div id="seatmap"></div>
+                  <div class="zoom-controls" role="group" aria-label="Map controls">
+                    <output id="zoom-level" aria-label="Map zoom">100%</output>
+                    <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in (+)">
+                      +</button
+                    ><button id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out (−)">
+                      −</button
+                    ><button
+                      id="fit"
+                      type="button"
+                      aria-label="Fit map"
+                      title="Fit the whole venue (0)"
+                    >
+                      Fit
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="seat-list"
+                  class="seat-list"
+                  aria-label="Seats by row"
+                  tabindex="0"
+                  hidden
+                ></div>
+              </div>
+              <p id="seat-detail" class="seat-detail">Choose a seat to get a closer look.</p>
+              <div id="legend" class="legend" aria-label="Price categories"></div>
+              <p class="map-help">
+                <span class="pointer-help"
+                  >Scroll to zoom · Drag to explore · Arrow keys + Enter to select</span
+                ><span class="touch-help"
+                  >Pinch to zoom · Drag to explore · Tap a seat to select</span
+                >
+              </p>
+            </div>
+            <p
+              id="selection-feedback"
+              class="selection-feedback"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </div>
+          <aside id="cart" class="cart" aria-labelledby="cart-title" tabindex="-1">
+            <div class="cart-heading">
+              <h3 id="cart-title">Your selection</h3>
+              <span id="selected-count">0 / 6</span>
+            </div>
+            <p class="cart-subtitle">Choose up to 6 seats to try the booking flow.</p>
+            <div id="cart-items"></div>
+            <div class="cart-bottom">
+              <button id="clear" class="text-button" type="button" hidden>Clear selection</button>
+              <div class="total"><span>Total</span><strong id="total">$0.00</strong></div>
+              <button id="export" class="primary-button" type="button" disabled>
+                Export selection <span aria-hidden="true">↗</span>
+              </button>
+              <p class="disclaimer">
+                This is a demo. Selecting seats does not reserve them or take payment.
+              </p>
+              <p id="feedback" role="status" aria-live="polite"></p>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section id="quickstart" class="quickstart" aria-labelledby="quickstart-title">
+        <div>
+          <p class="eyebrow">Small by design</p>
+          <h2 id="quickstart-title">Bring your data.<br />Build your experience.</h2>
+          <p>
+            Load your schema and prices from JSON. Keep your own reservation and checkout flow. Move
+            to the main renderer by changing one import.
+          </p>
+          <a href="https://seatmap.pro/demo/" class="pro-link"
+            >Explore the Seatmap.pro platform <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <div class="code-example">
+          <div class="code-heading"><span>Load your own JSON</span><span>JavaScript</span></div>
+          <pre
+            tabindex="0"
+            aria-label="JavaScript integration example"
+          ><code>import { SeatmapBookingRenderer }
+  from '@seatmap.pro/renderer-ce';
+import schema from './schema.json';
+import prices from './prices.json';
+
+const renderer = new SeatmapBookingRenderer(
+  element, {
+    onSeatSelect: seat =&gt; reserveSeat(seat),
+    onCartChange: cart =&gt; updateCart(cart),
+  }
+);
+
+await renderer.loadData(schema, prices);</code></pre>
+        </div>
+      </section>
+    </main>
+    <a id="selection-summary" class="selection-summary" href="#cart" hidden>
+      <span id="selection-summary-value"></span>
+      <span>Review selection <span aria-hidden="true">↓</span></span>
+    </a>
+    <footer>
+      <a class="brand" href="https://seatmap.pro">seatmap<span>.pro</span></a>
+      <p>renderer-ce · Made for builders. Shared with everyone.</p>
+      <a href="https://seatmap.pro">Explore the platform <span aria-hidden="true">↗</span></a>
+    </footer>
+  </body>
+</html>

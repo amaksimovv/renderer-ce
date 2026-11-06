@@ -1,0 +1,25 @@
+# Third-party notices
+
+The distributed renderer bundles KDBush 4.0.2.
+
+## KDBush
+
+ISC License
+
+Copyright (c) 2018, Vladimir Agafonkin
+
+Permission to use, copy, modify, and/or distribute this software for any purpose
+with or without fee is hereby granted, provided that the above copyright notice
+and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+THIS SOFTWARE.
+
+## Red Hat fonts
+
+The demo includes Red Hat Display and Red Hat Text. Their [SIL Open Font License](demo/fonts/OFL.txt) is included alongside the fonts. The fonts are not part of the renderer library bundle.
