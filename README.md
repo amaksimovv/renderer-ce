@@ -162,6 +162,10 @@ Browser tests cover Chromium desktop and mobile layouts, keyboard and pointer se
 
 The performance suite runs one browser at a time on the Barclays map. It reports frame intervals for a 14% pan and two returns from 125% through 100% to overview. It also checks that hovering and selecting seats leave the base map untouched. Mobile results use Chromium device emulation.
 
+## Contributors
+
+- [@sentry-i-am](https://github.com/sentry-i-am)
+
 ## License and map source
 
 [MIT](LICENSE), copyright Seatmap.pro. This license applies to renderer-ce, not other monorepo products. Red Hat fonts use the [SIL Open Font License](demo/fonts/OFL.txt).

@@ -10,6 +10,12 @@
   },
   "homepage": "https://seatmap.pro",
   "author": "Seatmap.pro",
+  "contributors": [
+    {
+      "name": "sentry-i-am",
+      "url": "https://github.com/sentry-i-am"
+    }
+  ],
   "keywords": [
     "seatmap",
     "seating-chart",
