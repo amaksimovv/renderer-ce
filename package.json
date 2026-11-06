@@ -1,6 +1,6 @@
 {
   "name": "@seatmap.pro/renderer-ce",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open-source Canvas 2D seating charts with a lightweight booking selection client",
   "license": "MIT",
   "type": "module",

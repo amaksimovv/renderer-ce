@@ -22,7 +22,7 @@ import type {
 } from './models.js';
 
 export class SeatmapBookingRenderer extends ViewportControls implements IRenderer {
-  static readonly VERSION = '0.1.0';
+  static readonly VERSION = '0.1.1';
   private api: BookingApiClient;
   private request?: AbortController;
   private dataManager: DataManager;

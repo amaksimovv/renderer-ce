@@ -1,5 +1,5 @@
 export { SeatmapBookingRenderer } from './SeatmapBookingRenderer.js';
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 export type { IPoint } from './booking/settings.js';
 export type {
   IBookingRendererSettings,
