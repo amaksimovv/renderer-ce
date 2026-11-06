@@ -70,3 +70,30 @@ it('settles replaced animations and honors reduced motion', async () => {
   expect(view.scale).toBe(1);
   expect(frames.size).toBe(0);
 });
+
+it('accumulates wheel events without postponing the frame and reverses at the visible cursor anchor', () => {
+  const view = new Viewport();
+  view.fitScale = 1;
+  const start = vi.fn(),
+    end = vi.fn();
+  const animation = new ViewportAnimation(view, vi.fn(), start, end);
+  const anchor = { x: 140, y: 60 };
+  for (let i = 0; i < 6; i++) animation.scroll(1.04, anchor);
+  expect(frames.size).toBe(1);
+  const frame = [...frames.keys()][0];
+  animation.scroll(1.04, anchor);
+  expect([...frames.keys()]).toEqual([frame]);
+  tick(16);
+  expect(view.scale).toBeGreaterThan(1);
+  expect(view.toWorld(anchor).x).toBeCloseTo(anchor.x, 8);
+  const peak = view.scale;
+  const moved = { x: 40, y: 90 };
+  const fixed = view.toWorld(moved);
+  animation.scroll(0.98, moved);
+  for (let t = 32; t < 700; t += 16) tick(t);
+  expect(view.scale).toBeCloseTo(peak * 0.98, 8);
+  expect(view.toWorld(moved).y).toBeCloseTo(fixed.y, 8);
+  expect(start).toHaveBeenCalledTimes(1);
+  expect(end).toHaveBeenCalledTimes(1);
+  expect(animation.active).toBe(false);
+});

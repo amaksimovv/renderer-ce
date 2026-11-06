@@ -167,7 +167,7 @@ export class SeatmapRenderer {
         this.keyboardFocus = false;
         this.schedule(false);
       },
-      zoom: (factor, anchor) => this.zoom(factor, anchor, 180),
+      zoom: (factor, anchor) => this.animation.scroll(factor, anchor),
       click: (point) => {
         this.keyboardFocus = false;
         this.schedule(false);

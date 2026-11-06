@@ -160,3 +160,41 @@ test('zooms back to the full Barclays map using its retained detailed raster', a
   expect(new Set(samples.map((s) => s.zoom)).size).toBeGreaterThan(3);
   expect(samples.filter((s) => s.draws === 0).length).toBeGreaterThan(8);
 });
+
+test(
+  'moves the cached Barclays map throughout a continuous wheel gesture',
+  { tag: '@performance' },
+  async ({ page }) => {
+    await page.goto('/?venue=barclays');
+    const map = page.getByRole('listbox');
+    await expect(map).toHaveAttribute('data-background-status', 'ready');
+    const result = await map.locator('canvas[data-seatmap-layer=map]').evaluate(async (canvas) => {
+      const rect = canvas.getBoundingClientRect();
+      const options = {
+        deltaY: -1.5,
+        clientX: rect.x + rect.width * 0.6,
+        clientY: rect.y + rect.height * 0.4,
+        cancelable: true,
+      };
+      const context = (canvas as HTMLCanvasElement).getContext('2d')!;
+      const widths = new Set<number>();
+      const original = context.drawImage;
+      context.drawImage = function (...args: unknown[]) {
+        if (typeof args[3] === 'number') widths.add(args[3]);
+        Reflect.apply(original, this, args);
+      };
+      const wheel = window.setInterval(
+        () => canvas.dispatchEvent(new WheelEvent('wheel', options)),
+        4,
+      );
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+        return widths.size;
+      } finally {
+        clearInterval(wheel);
+        context.drawImage = original;
+      }
+    });
+    expect(result).toBeGreaterThan(6);
+  },
+);

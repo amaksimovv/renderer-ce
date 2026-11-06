@@ -121,9 +121,11 @@ export function bindInteractions(options: InteractionOptions): () => void {
         (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? canvas.clientHeight : 1);
       const factor = Math.exp(-Math.max(-200, Math.min(200, delta)) * 0.003);
       if (options.zoom) options.zoom(factor, position(event));
-      else viewport.zoom(factor, position(event));
+      else {
+        viewport.zoom(factor, position(event));
+        redraw();
+      }
       hover(undefined);
-      redraw();
     },
     { signal, passive: false },
   );
