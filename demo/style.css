@@ -123,8 +123,13 @@ footer {
   border: 1px solid #5a6053;
   border-radius: 4px;
 }
-.header-link {
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   margin-left: auto;
+}
+.header-link {
   font-size: 14px;
   text-decoration: none;
 }
